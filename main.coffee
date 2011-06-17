@@ -36,5 +36,6 @@ app.get '/generate', (req, res) ->
   else
     res.send result: "<p>ぜんぜんできる</p>"
 
-app.listen 3000 
-console.log "listening on port %d", app.address().port 
+port = process.env.port || 3000
+app.listen port, -> 
+  console.log "listening on port %d", app.address().port 
