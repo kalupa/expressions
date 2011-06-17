@@ -1,0 +1,10 @@
+{
+    "name": "imgslice"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": ">= 2.3.10"
+    , "stylus": ">= 0.13.1"
+    , "jade": ">= 0.12.1"
+  }
+}
