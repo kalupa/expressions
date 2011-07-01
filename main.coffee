@@ -1,26 +1,24 @@
 express = require 'express'
-stylus  = require 'stylus'
-app     = module.exports    = express.createServer()
+app     = module.exports      = express.createServer()
+port    = process.env.PORT  or= 3000
 
 app.configure ->
   app.set 'views', __dirname + '/views' 
   app.set 'view engine', 'jade' 
-  app.use( require( 'stylus' ).middleware src: __dirname + '/public' )
-  app.use app.router 
+  app.use require( 'stylus' ).middleware src: __dirname + '/public/stylesheets'
+  app.use app.router
   app.use express.static __dirname + '/public'
   app.enable 'jsonp callback'
+  return
 
 app.configure 'development', ->
   app.use express.errorHandler dumpExceptions: true, showStack: true 
 
-app.configure 'production', ->
-  app.use express.errorHandler  
+app.configure 'production', -> app.use express.errorHandler
 
-generate_response = ->
-  rando = Math.round Math.random() * 1
+generate_response = -> Math.round Math.random
 
-generate_text = ( p ) ->
-  ( parseInt p.ping ) == 1
+generate_text = ( p ) -> ( parseInt p.ping?, 10 ) is 1
 
 # Routes
 
@@ -36,7 +34,6 @@ app.get '/generate', (req, res) ->
   else
     res.send result: "<p>ぜんぜんできる</p>"
 
-console.log process.env.URL
-port = process.env.PORT || 3000
 app.listen port, -> 
   console.log "listening on port %d", app.address().port
+  return
